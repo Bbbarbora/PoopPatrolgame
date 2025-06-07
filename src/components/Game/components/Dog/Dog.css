@@ -1,0 +1,41 @@
+@property --bgY { 
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 0;
+  }
+  
+  @property --spriteSheetW { 
+    syntax: '<length>';
+    inherits: true;
+    initial-value: 0;
+  }
+  
+  .dog {
+    --bgY: 0;
+    --spriteSheetW: 1312px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 164px; 
+    height: 136px;
+    background-image: url('imgs/DarkDogspriteSheet.png');
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: auto; 
+    animation: movement 0.8s steps(8) infinite;
+  }
+  
+  .dog.walk-up-right { --bgY: 0;}
+  .dog.walk-up-left { --bgY: -136px;}
+  .dog.walk-up { --bgY: -272px;}
+  .dog.walk-right { --bgY: -408px;}
+  .dog.walk-left { --bgY: -544px;}
+  .dog.walk-down-right { --bgY: -680px;}
+  .dog.walk-down-left { --bgY: -816px;}
+  .dog.walk-down { --bgY: -952px;}
+  .dog.sit { --bgY: 1088px;}
+  
+  @keyframes movement {
+    from { background-position: 0 var(--bgY)}
+    to   { background-position: calc(var(--spriteSheetW) * -1) var(--bgY) }
+  }

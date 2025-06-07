@@ -1,14 +1,17 @@
 import './Game.css'
-
+import { Tree } from './components/Tree/Tree'
+import { Poop } from './components/Poop/Poop'
+import { Dog } from './components/Dog/Dog'
 
 export const Game = () => {
     return (
         <div id="game-screen">
             <div id="game-area">
-                <div id="dog" className="dog-walk-up dog-walk-left"></div>
+                <Dog />
                 <div id="player"></div>
-                <div class="poop"></div>
+                <Poop />
                 <div id="trash-bin"></div>
+                <Tree />
             </div>
         </div>
         
