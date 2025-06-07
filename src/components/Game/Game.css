@@ -11,9 +11,16 @@ body, html {
   color: #000; /* Čierny text */
 }
 
+.game-screen {
+  width: 100dvw;
+  height: 100dvh;
+  position: relative;
+
+}
 /* Herná obrazovka */
 #game-area {
-  position: relative;
+  position: absolute;
+  inset: 0;
   width: 100dvw;
   height: 100dvh;
   background-image: url('imgs/backgroundGame.png'); 

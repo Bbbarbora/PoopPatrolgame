@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "rc-joystick": "^1.1.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
@@ -19,4 +20,3 @@
     "vite": "^6.3.5"
   }
 }
-  
