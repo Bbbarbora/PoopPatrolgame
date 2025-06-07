@@ -2,8 +2,8 @@
     position: absolute;
     bottom: 10%;
     right: 10%;
-    width: 100px;
-    height: 100px;
+    width: 200px;
+    height: 200px;
     background-image: url('imgs/Tree.png');
     background-size: contain;
     background-repeat: no-repeat;
