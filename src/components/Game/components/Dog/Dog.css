@@ -12,28 +12,28 @@
   
   .dog {
     --bgY: 0;
-    --spriteSheetW: 1312px;
+    --spriteSheetW: 656px;
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 164px; 
-    height: 136px;
+    width: 82px; /*164px*/
+    height: 78px; /*136px*/
     background-image: url('imgs/DarkDogspriteSheet.png');
     background-position: 0 0;
     background-repeat: no-repeat;
-    background-size: auto; 
+    background-size: 656px 612px; 
     animation: movement 0.8s steps(8) infinite;
   }
   
   .dog.walk-up-right { --bgY: 0;}
-  .dog.walk-up-left { --bgY: -136px;}
-  .dog.walk-up { --bgY: -272px;}
-  .dog.walk-right { --bgY: -408px;}
-  .dog.walk-left { --bgY: -544px;}
-  .dog.walk-down-right { --bgY: -680px;}
-  .dog.walk-down-left { --bgY: -816px;}
-  .dog.walk-down { --bgY: -952px;}
-  .dog.sit { --bgY: 1088px;}
+  .dog.walk-up-left { --bgY: -78px;}
+  .dog.walk-up { --bgY: -156px;}
+  .dog.walk-right { --bgY: -204px;}
+  .dog.walk-left { --bgY: -272px;}
+  .dog.walk-down-right { --bgY: -340px;}
+  .dog.walk-down-left { --bgY: -408px;}
+  .dog.walk-down { --bgY: -476px;}
+  .dog.sit { --bgY: -544px;}
   
   @keyframes movement {
     from { background-position: 0 var(--bgY)}
