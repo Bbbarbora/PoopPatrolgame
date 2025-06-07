@@ -5,7 +5,7 @@ export default defineConfig({
   root: './src',
   publicDir: '../public',
   server: {
-    hmr: false,
+    hmr: true,
   },
   build: {
     outDir: '../dist',
