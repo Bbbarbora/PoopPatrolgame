@@ -14,10 +14,10 @@
     --bgY: 0;
     --spriteSheetW: 656px;
     position: absolute;
-    left: 50%;
+    left: 80%;
     top: 50%;
     width: 82px; /*164px*/
-    height: 78px; /*136px*/
+    height: 68px; /*136px*/
     background-image: url('imgs/DarkDogspriteSheet.png');
     background-position: 0 0;
     background-repeat: no-repeat;
@@ -26,8 +26,8 @@
   }
   
   .dog.walk-up-right { --bgY: 0;}
-  .dog.walk-up-left { --bgY: -78px;}
-  .dog.walk-up { --bgY: -156px;}
+  .dog.walk-up-left { --bgY: -68px;}
+  .dog.walk-up { --bgY: -136px;}
   .dog.walk-right { --bgY: -204px;}
   .dog.walk-left { --bgY: -272px;}
   .dog.walk-down-right { --bgY: -340px;}
