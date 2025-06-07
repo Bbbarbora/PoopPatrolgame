@@ -16,6 +16,7 @@ export const Game = () => {
     height: 68,
     direction: "down-left",
     isMoving: true,
+    stepsToGo: 50,
   });
 
   const [player, setPlayer] = useState({
@@ -64,8 +65,144 @@ export const Game = () => {
 
   useEffect(() => {
     const gameLoop = () => {
-      console.log("ble");
+      setPlayer((currentPlayer) => {
+        let newX = currentPlayer.x;
+        let newY = currentPlayer.y;
+        const step = 7;
+
+        if (currentPlayer.isMoving) {
+          switch (currentPlayer.direction) {
+            case "right":
+              newX += step;
+              break;
+            case "left":
+              newX -= step;
+              break;
+            case "down":
+              newY += step;
+              break;
+            case "up":
+              newY -= step;
+              break;
+            case "up-left":
+              newX -= step * 0.7;
+              newY -= step * 0.7;
+              break;
+            case "up-right":
+              newX += step * 0.7;
+              newY -= step * 0.7;
+              break;
+            case "down-left":
+              newX -= step * 0.7;
+              newY += step * 0.7;
+              break;
+            case "down-right":
+              newX += step * 0.7;
+              newY += step * 0.7;
+              break;
+          }
+        }
+
+        newX = Math.max(
+          0 + currentPlayer.width / 2,
+          Math.min(window.innerWidth - currentPlayer.width / 2, newX)
+        );
+        newY = Math.max(
+          0 + currentPlayer.height,
+          Math.min(window.innerHeight, newY)
+        );
+
+        return { ...currentPlayer, x: newX, y: newY };
+      });
+      setDog((currentDog) => {
+        let newX = currentDog.x;
+        let newY = currentDog.y;
+        const step = 7;
+
+        if (currentDog.isMoving) {
+          switch (currentDog.direction) {
+            case "right":
+              newX += step;
+              break;
+            case "left":
+              newX -= step;
+              break;
+            case "down":
+              newY += step;
+              break;
+            case "up":
+              newY -= step;
+              break;
+            case "up-left":
+              newX -= step * 0.7;
+              newY -= step * 0.7;
+              break;
+            case "up-right":
+              newX += step * 0.7;
+              newY -= step * 0.7;
+              break;
+            case "down-left":
+              newX -= step * 0.7;
+              newY += step * 0.7;
+              break;
+            case "down-right":
+              newX += step * 0.7;
+              newY += step * 0.7;
+              break;
+          }
+        }
+
+        newX = Math.max(
+          0 + currentDog.width / 2,
+          Math.min(window.innerWidth - currentDog.width / 2, newX)
+        );
+        newY = Math.max(
+          0 + currentDog.height,
+          Math.min(window.innerHeight, newY)
+        );
+
+        let newStepsToGo = currentDog.stepsToGo - 1;
+        let newDirection = currentDog.direction;
+        if (newStepsToGo === 0) {
+          console.log("ndiaefsop");
+          newStepsToGo = Math.floor(Math.random() * 20 + 30);
+          const dogDirection = [
+            "up",
+            "up-right",
+            "right",
+            "down-right",
+            "down",
+            "down-left",
+            "left",
+            "up-left",
+          ];
+          newDirection = dogDirection[Math.floor(Math.random() * 8)];
+
+          setItems((currentItems) => {
+            return [
+              ...currentItems,
+              {
+                id: [Math.floor(Math.random() * 1000)],
+                x: newX,
+                y: newY,
+                width: 30,
+                height: 30,
+                type: "poop",
+              },
+            ];
+          });
+        }
+
+        return {
+          ...currentDog,
+          x: newX,
+          y: newY,
+          stepsToGo: newStepsToGo,
+          direction: newDirection,
+        };
+      });
     };
+
     setInterval(gameLoop, 50);
   }, []);
 
@@ -81,14 +218,20 @@ export const Game = () => {
       TopLeft: "up-left",
       Center: "",
     };
+
+    const newDirection = dir === "Center" ? player.direction : conversion[dir];
+    const newIsMoving = dir === "Center" ? false : true;
+
     console.log(conversion[dir], dir);
-    setPlayer((currentPlayer) => {
-      return {
-        ...currentPlayer,
-        direction: dir === "Center" ? currentPlayer.direction : conversion[dir],
-        isMoving: dir === "Center" ? false : true,
-      };
-    });
+    if (player.direction !== newDirection || player.isMoving !== newIsMoving) {
+      setPlayer((currentPlayer) => {
+        return {
+          ...currentPlayer,
+          direction: newDirection,
+          isMoving: newIsMoving,
+        };
+      });
+    }
   };
 
   return (
