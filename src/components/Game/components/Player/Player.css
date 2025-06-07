@@ -1,0 +1,49 @@
+
+@property --bgY { 
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --spriteSheetW { 
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0;
+}
+
+.player {
+  --bgY: 0;
+  --spriteSheetW: 544px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 68px; /* uprav podľa veľkosti jedného frame */
+  height: 126px;
+  background-image: url('imgs/player-sprite-sheet.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: auto; /* necháme to ako originál */
+  animation: movement 0.8s steps(8) infinite;
+}
+
+.player.walk-down { --bgY: 0; }
+.player.walk-left { --bgY: calc(1 * -126px); }
+.player.walk-down-left { --bgY: calc(2 * -126px); }
+.player.walk-up-left { --bgY: calc(3 * -126px); }
+.player.walk-right { --bgY: calc(4 * -126px); }
+.player.walk-down-right { --bgY: calc(5 * -126px); }
+.player.walk-up-right { --bgY: calc(6 * -126px); }
+.player.walk-up { --bgY: calc(7 * -126px); }
+.player.idle-down { --bgY: calc(8 * -126px); }
+.player.idle-left { --bgY: calc(9 * -126px); }
+.player.idle-down-left { --bgY: calc(10 * -126px); }
+.player.idle-up-left { --bgY: calc(11 * -126px); }
+.player.idle-right { --bgY: calc(12 * -126px); }
+.player.idle-down-right { --bgY: calc(13 * -126px); }
+.player.idle-up-right { --bgY: calc(14 * -126px); }
+.player.idle-up { --bgY: calc(15 * -126px); }
+
+@keyframes movement {
+  from { background-position: 0 var(--bgY)}
+  to   { background-position: calc(var(--spriteSheetW) * -1) var(--bgY) }
+} 

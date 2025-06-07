@@ -1,4 +1,7 @@
 import './Game.css'
+import './components/Bin/Bin'
+import { Bin } from './components/Bin/Bin'
+import { Player } from './components/Player/Player'
 
 
 export const Game = () => {
@@ -6,9 +9,9 @@ export const Game = () => {
         <div id="game-screen">
             <div id="game-area">
                 <div id="dog" className="dog-walk-up dog-walk-left"></div>
-                <div id="player"></div>
+                <Player/>
                 <div class="poop"></div>
-                <div id="trash-bin"></div>
+                <Bin/>
             </div>
         </div>
         
