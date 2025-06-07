@@ -13,9 +13,7 @@
   .dog {
     --bgY: 0;
     --spriteSheetW: 656px;
-    position: absolute;
-    left: 80%;
-    top: 50%;
+     position: absolute;
     width: 82px; /*164px*/
     height: 68px; /*136px*/
     background-image: url('imgs/DarkDogspriteSheet.png');

@@ -1,7 +1,14 @@
 import './Bin.css'
 
-export const Bin = () => {
+export const Bin = ({state:{x, y, width, height, type}}) => {
     return (
-            <div id="trash-bin"></div>
+            <div
+            style={{
+            left:x-width/2, 
+            top: y-height,
+            zIndex: y,
+        }} 
+            id="trash-bin"></div>
     )
 };
+

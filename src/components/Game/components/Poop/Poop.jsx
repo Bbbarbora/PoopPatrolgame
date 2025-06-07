@@ -1,7 +1,13 @@
 import '../Poop/Poop.css'
 
-export const Poop = () => {
+export const Poop = ({state:{x, y, width, height, type}}) => {
     return (
-        <div id='poop'></div>
+        <div
+        style={{
+            left:x-width/2, 
+            top: y-height,
+            zIndex: y,
+        }} 
+        id='poop'></div>
     )
 }

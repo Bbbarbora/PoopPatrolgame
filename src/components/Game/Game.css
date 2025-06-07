@@ -12,7 +12,7 @@ body, html {
 }
 
 /* Herná obrazovka */
-#game-screen {
+#game-area {
   position: relative;
   width: 100dvw;
   height: 100dvh;

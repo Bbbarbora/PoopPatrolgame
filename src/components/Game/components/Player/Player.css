@@ -15,14 +15,12 @@
   --bgY: 0;
   --spriteSheetW: 363px; /*544*/
   position: absolute;
-  left: 50%;
-  top: 50%;
   width: 45px; /* 68 uprav podľa veľkosti jedného frame */
   height: 84px; /*126*/
   background-image: url('imgs/player-sprite-sheet.png');
   background-position: 0 0;
   background-repeat: no-repeat;
-  background-size: 363px 1354px; /* necháme to ako originál */
+  background-size: 363px 1344px; /* necháme to ako originál */
   animation: movement 0.8s steps(8) infinite;
 }
 

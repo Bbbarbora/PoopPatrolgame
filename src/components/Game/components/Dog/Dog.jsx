@@ -1,7 +1,13 @@
 import './Dog.css'
 
-export const Dog = ({direction = 'down', isMoving = false}) => {
+export const Dog = ({state:{x, y, width, height, direction, isMoving}}) => {
     return (
-        <div className={`dog ${direction} ${isMoving}`}></div>
+        <div 
+        style={{
+            left:x-width/2, 
+            top: y-height,
+            zIndex: y,
+        }} 
+        className={`dog ${isMoving?'walk-'+direction:'sit'}`}></div>
     )
 }

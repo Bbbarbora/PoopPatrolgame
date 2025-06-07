@@ -1,7 +1,14 @@
 import '../Tree/Tree.css'
 
-export const Tree = () => {
+export const Tree = ({state:{x, y, width, height, type}}) => {
     return (
-        <div id='tree'></div>
+        <div
+        style={{
+            left:x-width/2, 
+            top: y-height,
+            zIndex: y,
+        }} 
+        id='tree'></div>
     )
 }
+
