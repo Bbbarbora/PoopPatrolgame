@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 
 export const Entrance = () => {
     return (
-<main className="start-screen">
+    <main className="start-screen">
+      <div className="start-screen-content">
     <button className="start-screen__info-btn" aria-label="Game information">
       <Link to="/rules"><img src= {information} alt="Info icon" className="start-screen__info-icon"/></Link>
     </button>
@@ -26,7 +27,7 @@ export const Entrance = () => {
     </button>
 
     <Link to="gamePage/"><p class="start-screen__text">Pick me up to continue</p></Link>
-
+    </div>
     </main>
     )
 };

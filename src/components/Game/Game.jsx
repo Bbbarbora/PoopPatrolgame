@@ -19,6 +19,7 @@ import { useAudio } from "../../hooks/useAudio";
 import musicUrl from "./sounds/music.mp3";
 import pickupUrl from "./sounds/pickup.mp3";
 import putUrl from "./sounds/put.mp3";
+import { Menu } from "../Menu/Menu";
 
 
 export const Game = () => {
@@ -187,10 +188,16 @@ export const Game = () => {
       }
       forceRefresh({});
     };
+  
 
-    setInterval(gameLoop, 50);
+    const intervalId = setInterval(gameLoop, 50);
     music.volume(0.5);
     music.play();
+
+    return () => { 
+      music.stop();
+      clearInterval(intervalId)
+    }
   }, []);
 
   const handleDirectionChange = (dir) => {
@@ -221,7 +228,10 @@ export const Game = () => {
 
   return (
     <div className="game-screen">
+      <Menu />
       <div id="game-area">
+        <Player state={player.current} />
+        <Dog state={dog.current} />
         {items.current.map((item) => {
           switch (item.type) {
             case "poop":
@@ -232,11 +242,8 @@ export const Game = () => {
               return <Bin key={item.id} state={item} />;
           }
         })}
-
-        <Player state={player.current} />
-        <Dog state={dog.current} />
       </div>
-      <GhostArea width="100%" height="100%">
+      <GhostArea className= "gameGhost" width="100%" height="100%">
         <Joystick
           directionCount={DirectionCount.Nine}
           baseRadius={60}

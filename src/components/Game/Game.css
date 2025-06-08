@@ -1,25 +1,15 @@
 /* Reset a základné nastavenia */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body, html {
-  height: 100%;
-  font-family: 'Arial', sans-serif;
-  color: #000; /* Čierny text */
-}
-
 .game-screen {
   width: 100dvw;
   height: 100dvh;
   position: relative;
-
+  display: flex;
+  flex-direction: column;
 }
+
 /* Herná obrazovka */
 #game-area {
-  position: absolute;
+  position: relative;
   inset: 0;
   width: 100dvw;
   height: 100dvh;
@@ -27,4 +17,10 @@ body, html {
   background-size: cover;
   background-position: center;
   overflow: hidden;
+  flex: 1 1 100%;
+}
+
+.gameGhost {
+  position: absolute !important;
+  inset: 0;
 }
