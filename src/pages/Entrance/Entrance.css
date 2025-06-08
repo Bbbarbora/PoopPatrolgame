@@ -1,7 +1,11 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
 
+ 
  body {
     margin: 0;
-    background-color: #4ba98f;
+    background-color: #64ac1c;
     font-family: 'Comic Sans MS', sans-serif;
     display: flex;
     justify-content: center;
@@ -29,6 +33,36 @@
     width: 100%;
     max-width: 250px;
     height: auto;
+  }
+
+  .start-screen__info-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+  }
+
+  .start-screen__info-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .start-screen__language-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 100;
+  }
+
+  .start-screen__language-icon {
+    width: 30px;
+    height: 30px;
   }
 
    .start-screen__dog {
