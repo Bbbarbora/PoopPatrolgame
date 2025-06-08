@@ -1,0 +1,68 @@
+.rules-screen {
+  background-color: #4ba98f;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rules-screen__top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rules-screen__back-btn,
+.rules-screen__language-btn {
+  background: none;
+  border: none;
+  padding: 1rem;
+}
+
+.rules-screen__back-icon,
+.rules-screen__language-icon {
+  width: 40px;
+  height: auto;
+}
+
+.rules-screen__title {
+  font-family: 'Lacquer', cursive;
+  font-size: 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.sprite-dog {
+  width: 164px;
+  height: 136px;
+  background-image: url('imgs/idle.png'); 
+  background-repeat: no-repeat;
+  background-position-x: 0;
+  background-size: auto;    
+}
+
+.rules-screen__content {
+  max-width: 700px;
+  text-align: left;
+}
+
+.rules-screen__content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin: 1.2rem 0;
+}
+
+.rules-screen__content strong {
+  color: #333;
+  font-weight: bold;
+}
+
+.rules-screen__quote {
+  font-style: italic;
+  margin-top: 2rem;
+  color: #3a3a3a;
+}

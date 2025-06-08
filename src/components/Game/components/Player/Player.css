@@ -45,3 +45,15 @@
   from { background-position: 0 var(--bgY)}
   to   { background-position: calc(var(--spriteSheetW) * -1) var(--bgY) }
 } 
+
+.poopBubble {
+  width: 60px;
+  height: 40px;
+  background-image: url(./imgs/bubble_small.png);
+  background-size: contain;
+  position:absolute;
+  top:-40px;
+  left: 50%;
+  transform: translateX(-50%);
+
+}

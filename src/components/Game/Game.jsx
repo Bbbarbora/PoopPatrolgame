@@ -82,13 +82,26 @@ export const Game = () => {
         player.current.x = newX;
         player.current.y = newY;
 
-        for (let i = items.current.length - 1; i >= 0; i--) {
-          if (
-            isCollision(player.current, items.current[i]) &&
-            items.current[i].type === "poop"
-          ) {
-            items.current.splice(i, 1);
+        // Collision with poop
+        if (!player.current.isCarryingPoop) {
+          for (let i = items.current.length - 1; i >= 0; i--) {
+            if (
+              isCollision(player.current, items.current[i]) &&
+              items.current[i].type === "poop"
+            ) {
+              items.current.splice(i, 1);
+              player.current.isCarryingPoop = true;
+              break;
+            }
           }
+        }
+
+        // Collision with bin
+        const bin = items.current.find((item) => {
+          return item.type === "bin";
+        });
+        if (isCollision(player.current, bin) && player.current.isCarryingPoop) {
+          player.current.isCarryingPoop = false;
         }
       }
 

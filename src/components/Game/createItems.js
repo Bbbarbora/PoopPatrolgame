@@ -10,8 +10,10 @@ export const createPlayer = (x, y) => {
         width: 45,
         height: 84,
         r: 22,
+        dy: -15,
         direction: "down",
         isMoving: false,
+        isCarryingPoop: false,
     }
 }
 
@@ -22,7 +24,8 @@ export const createDog = (x, y) => {
         y: y,
         width: 82,
         height: 68,
-        r: 41,
+        r: 36,
+        dy: -28,
         direction: "down-left",
         isMoving: true,
         stepsToGo: 50,
@@ -41,6 +44,7 @@ export const createPoop = (x, y) => {
         width: 30,
         height: 30,
         r: 15,
+        dy: -15,
         type: "poop",
     }
 };
@@ -51,9 +55,10 @@ export const createBin = (x, y) => {
         id: id,
         x: x,
         y: y,
-        width: 60,
-        height: 60,
-        r: 30,
+        width: 55,
+        height: 68,
+        r: 35,
+        dy: -20,
         type: "bin",
     }
 };
@@ -64,9 +69,10 @@ export const createTree = (x, y) => {
         id: id,
         x: x,
         y: y,
-        width: 200,
-        height: 200,
-        r: 100,
+        width: 140,
+        height: 158,
+        r: 35,
+        dy: -35,
         type: "tree",
     }
 };
