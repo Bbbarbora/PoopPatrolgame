@@ -19,7 +19,7 @@ import { useAudio } from "../../hooks/useAudio";
 import musicUrl from "./sounds/music.mp3";
 import pickupUrl from "./sounds/pickup.mp3";
 import putUrl from "./sounds/put.mp3";
-import { Menu } from "../Menu/Menu";
+import { TopBar } from "../TopBar/TopBar";
 
 
 export const Game = () => {
@@ -31,6 +31,9 @@ export const Game = () => {
     createPoop(100, 100),
     createTree(300, 300),
   ]);
+
+  const poopCount = useRef(0)
+  const time = useRef(0)
 
   const music = useAudio(musicUrl)
   const pickupSound = useAudio(pickupUrl)
@@ -112,6 +115,7 @@ export const Game = () => {
         if (isCollision(player.current, bin) && player.current.isCarryingPoop) {
           player.current.isCarryingPoop = false; 
           putSound.play()
+          poopCount.current += 1
         }
       }
 
@@ -228,7 +232,9 @@ export const Game = () => {
 
   return (
     <div className="game-screen">
-      <Menu />
+      <TopBar isCarryingPoop={player.current.isCarryingPoop}
+      poopCount={poopCount.current}
+      time={time.current} />
       <div id="game-area">
         <Player state={player.current} />
         <Dog state={dog.current} />

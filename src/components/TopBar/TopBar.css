@@ -1,29 +1,66 @@
-  .start-screen__info-btn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 100;
-  }
 
-  .start-screen__info-icon {
+  /* Horné menu */
+  #top-bar {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #64ac1c;
+  }
+  
+  /* Ľavá časť menu */
+  .topbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .poop-counter {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .poop-counter img, #carrying-indicator img {
     width: 24px;
     height: 24px;
+    margin-right: 5px;
   }
-
-  .start-screen__language-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  
+  /* Stredná časť menu */
+  .topbar-center {
+    position: relative;
+    top: 15px; /* Posunutie nadol kvôli výrezu na mobiloch */
+    display: flex;
+    align-items: center;
+  }
+  
+  .timer img {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  
+  /* Pravá časť menu */
+  .topbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  #pause-button {
     background: none;
     border: none;
     cursor: pointer;
-    z-index: 100;
   }
-
-  .start-screen__language-icon {
-    width: 30px;
-    height: 30px;
+  
+  #pause-button img {
+    width: 28px;
+    height: 28px;
   }
+  
+  /* Skryté prvky */
+  .hidden {
+    display: none;
+  }
+  
+  

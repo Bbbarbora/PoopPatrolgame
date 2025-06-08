@@ -26,7 +26,7 @@ export const Entrance = () => {
       <Link to="/gamePage"><img src={poop} alt="Poop icon" className="start-screen__poop-icon"/></Link>
     </button>
 
-    <Link to="gamePage/"><p class="start-screen__text">Pick me up to continue</p></Link>
+    <Link to="gamePage/"><p className="start-screen__text">Pick me up to continue</p></Link>
     </div>
     </main>
     )
