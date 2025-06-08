@@ -1,0 +1,54 @@
+.gameover-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #64ac1c;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  color: white;
+  font-family: 'Comic Sans MS', sans-serif;
+  z-index: 9999;
+  text-align: center;
+}
+
+.gameover-screen__title {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.gameover-screen__score {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+#final-score {
+  font-weight: bold;
+}
+
+.gameover-screen__message {
+  font-size: 1.5rem;
+  max-width: 80%;
+}
+
+.gameover-screen__btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 0.8rem 2rem;
+  color: white;
+  font-size: 1.2rem;
+  font-family: 'Murecho', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gameover-screen__btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: scale(1.05);
+}
