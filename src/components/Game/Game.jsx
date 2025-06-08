@@ -31,7 +31,6 @@ export const Game = () => {
   const player = useRef(createPlayer(200, 299));
   const items = useRef([
     createBin(200, 100),
-    createPoop(100, 100),
     createTree(300, 300),
   ]);
 
@@ -191,7 +190,12 @@ export const Game = () => {
 
         let newStepsToGo = dog.current.stepsToGo - 1;
         let newDirection = dog.current.direction;
-        if (newStepsToGo === 0) {
+        if (newStepsToGo === 0
+          || newX === 0 + dog.current.width / 2
+          || newX === window.innerWidth - dog.current.width / 2
+          || newY === 0 + dog.current.height
+          || newY === window.innerHeight - topBarHeight
+        ) {
           newStepsToGo = Math.floor(Math.random() * 20 + 30);
           const dogDirection = [
             "up",
@@ -213,7 +217,7 @@ export const Game = () => {
           // test na Game Over
           const poopItems = items.current.filter (item => item.type === "poop")
           if (poopItems.length === 3) {
-            console.log("game over")
+            navigate("/gameover", {state: {score: poopCount.current}})
           }
         }
 
@@ -237,6 +241,16 @@ export const Game = () => {
       cancelAnimationFrame(requestAnimationId.current);
     }
   }, []);
+
+  useEffect(() => {
+    document.addEventListener('selectstart', preventDefault);
+    document.addEventListener('contextmenu', preventDefault);
+
+    return () => {
+      document.removeEventListener('selectstart', preventDefault);
+      document.removeEventListener('contextmenu', preventDefault);
+    }
+  }, [])
 
   const handleDirectionChange = (dir) => {
     const conversion = {

@@ -1,20 +1,22 @@
 import "./GameOver.css";
+import { useLocation } from "react-router-dom";
 
-export const Entrance = () => {
+export const GameOver = () => {
+  const location = useLocation()
   return (
-    <div class="gameover-screen">
-      <h2 class="gameover-screen__title">Game Over</h2>
+    <div className="gameover-screen">
+      <h2 className="gameover-screen__title">Game Over</h2>
 
-      <p class="gameover-screen__score">
-        Your score: <span id="final-score">0</span>
+      <p className="gameover-screen__score">
+        Your score: <span id="final-score">{location.state.score}</span>
       </p>
 
-      <p class="gameover-screen__message">
+      <p className="gameover-screen__message">
         Don’t worry, even the best need practice! 🐾 Try again and clean up that
         park!
       </p>
 
-      <button class="gameover-screen__btn" aria-label="Play again">
+      <button className="gameover-screen__btn" aria-label="Play again">
         Play again
       </button>
     </div>
