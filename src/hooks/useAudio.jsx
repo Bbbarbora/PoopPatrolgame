@@ -1,25 +1,26 @@
 import { useRef, useState, useEffect } from 'react';
 
 export function useAudio(url) {
-  const audioRef = useRef(new Audio(url));
+  const audioRef = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
 
   // Automatická synchronizace stavu při změně přehrávání
   useEffect(() => {
-    const audio = audioRef.current;
+    audioRef.current =  new Audio(url)
 
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
     const handleEnded = () => setIsPlaying(false);
 
-    audio.addEventListener('play', handlePlay);
-    audio.addEventListener('pause', handlePause);
-    audio.addEventListener('ended', handleEnded);
+    audioRef.current.addEventListener('play', handlePlay);
+    audioRef.current.addEventListener('pause', handlePause);
+    audioRef.current.addEventListener('ended', handleEnded);
 
     return () => {
-      audio.removeEventListener('play', handlePlay);
-      audio.removeEventListener('pause', handlePause);
-      audio.removeEventListener('ended', handleEnded);
+      audioRef.current.pause();
+      audioRef.current.removeEventListener('play', handlePlay);
+      audioRef.current.removeEventListener('pause', handlePause);
+      audioRef.current.removeEventListener('ended', handleEnded);
     };
   }, []);
 
@@ -38,7 +39,7 @@ export function useAudio(url) {
 
   const volume = (vol) => {
     audioRef.current.volume = vol
-  } 
+  }
 
   return {
     play,

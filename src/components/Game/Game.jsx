@@ -15,14 +15,17 @@ import {
   createDog,
 } from "./createItems";
 import { isCollision } from "./collisionDetection";
-import { useAudio } from "../../hooks/useAudio"; 
+import { useAudio } from "../../hooks/useAudio";
 import musicUrl from "./sounds/music.mp3";
 import pickupUrl from "./sounds/pickup.mp3";
 import putUrl from "./sounds/put.mp3";
 import { TopBar } from "../TopBar/TopBar";
+import { Menu } from "../Menu/Menu";
+import { useNavigate } from "react-router-dom";
 
 
 export const Game = () => {
+  const navigate = useNavigate()
   const [, forceRefresh] = useState({});
   const dog = useRef(createDog(300, 300));
   const player = useRef(createPlayer(200, 299));
@@ -32,20 +35,39 @@ export const Game = () => {
     createTree(300, 300),
   ]);
 
+  const dogSpeedIncrease = 0.3;
+  const playerSpeedIncrease = 0.2;
+  const poopAfter = 7;
+  const lastPoopTime = useRef(0);
+
   const poopCount = useRef(0)
   const time = useRef(0)
-
+  const isGamePaused = useRef(false)
+  const isSoundEnabled = useRef(true)
   const music = useAudio(musicUrl)
   const pickupSound = useAudio(pickupUrl)
   const putSound = useAudio(putUrl)
+  const requestAnimationId = useRef()
+  const lastTime = useRef(0)
+  const topBarHeight = 55
 
   useEffect(() => {
-    const gameLoop = () => {
+    const gameLoop = (currentTime) => {
+        const deltaTime = (currentTime - lastTime.current)/1000
+        if (deltaTime < 0.05) {
+          requestAnimationId.current = requestAnimationFrame(gameLoop);
+          return;
+        }
+        lastTime.current = currentTime
+        
+        if (!isGamePaused.current) {
+          time.current += deltaTime
+
       // PLAYER block
       {
         let newX = player.current.x;
         let newY = player.current.y;
-        const step = 7;
+        const step = 7 + playerSpeedIncrease * poopCount.current;
 
         if (player.current.isMoving) {
           switch (player.current.direction) {
@@ -86,7 +108,7 @@ export const Game = () => {
         );
         newY = Math.max(
           0 + player.current.height,
-          Math.min(window.innerHeight, newY)
+          Math.min(window.innerHeight - topBarHeight, newY)
         );
 
         player.current.x = newX;
@@ -101,7 +123,7 @@ export const Game = () => {
             ) {
               items.current.splice(i, 1);
               player.current.isCarryingPoop = true;
-              pickupSound.play();
+              if (isSoundEnabled.current) { pickupSound.play() };
               break;
 
             }
@@ -113,8 +135,8 @@ export const Game = () => {
           return item.type === "bin";
         });
         if (isCollision(player.current, bin) && player.current.isCarryingPoop) {
-          player.current.isCarryingPoop = false; 
-          putSound.play()
+          player.current.isCarryingPoop = false;
+          if (isSoundEnabled.current) { putSound.play() }
           poopCount.current += 1
         }
       }
@@ -123,7 +145,7 @@ export const Game = () => {
       {
         let newX = dog.current.x;
         let newY = dog.current.y;
-        const step = 7;
+        const step = 7 + dogSpeedIncrease * poopCount.current
 
         if (dog.current.isMoving) {
           switch (dog.current.direction) {
@@ -164,7 +186,7 @@ export const Game = () => {
         );
         newY = Math.max(
           0 + dog.current.height,
-          Math.min(window.innerHeight, newY)
+          Math.min(window.innerHeight - topBarHeight, newY)
         );
 
         let newStepsToGo = dog.current.stepsToGo - 1;
@@ -182,7 +204,17 @@ export const Game = () => {
             "up-left",
           ];
           newDirection = dogDirection[Math.floor(Math.random() * 8)];
+          
+        }
+
+        if (time.current > lastPoopTime.current + poopAfter) {
           items.current.push(createPoop(newX, newY));
+          lastPoopTime.current = time.current
+          // test na Game Over
+          const poopItems = items.current.filter (item => item.type === "poop")
+          if (poopItems.length === 3) {
+            console.log("game over")
+          }
         }
 
         dog.current.x = newX;
@@ -190,17 +222,19 @@ export const Game = () => {
         dog.current.stepsToGo = newStepsToGo;
         dog.current.direction = newDirection;
       }
+    }
       forceRefresh({});
+      requestAnimationId.current = requestAnimationFrame(gameLoop);
     };
-  
 
-    const intervalId = setInterval(gameLoop, 50);
-    music.volume(0.5);
-    music.play();
+    soundOn();
 
-    return () => { 
+    requestAnimationId.current = requestAnimationFrame(gameLoop);
+    
+
+    return () => {
       music.stop();
-      clearInterval(intervalId)
+      cancelAnimationFrame(requestAnimationId.current);
     }
   }, []);
 
@@ -230,11 +264,39 @@ export const Game = () => {
     }
   };
 
+  const pauseGame = () => {
+    isGamePaused.current = true
+  }
+
+  const resumeGame = () => {
+    isGamePaused.current = false
+  }
+
+  const soundOn = () => {
+    isSoundEnabled.current = true
+    if (!music.isPlaying) {
+      music.volume(0.5)
+      music.play()
+    }
+  }
+
+  const soundOff = () => {
+    isSoundEnabled.current = false
+    if (music.isPlaying) {
+      music.stop()
+    }
+  }
+
   return (
     <div className="game-screen">
+      {isGamePaused.current && <Menu onSoundOn={soundOn}
+        onSoundOff={soundOff}
+        onResume={resumeGame} />}
       <TopBar isCarryingPoop={player.current.isCarryingPoop}
-      poopCount={poopCount.current}
-      time={time.current} />
+        poopCount={poopCount.current}
+        time={time.current.toFixed(0)}
+        onPause={pauseGame} />
+     <div className="game-wrap"> 
       <div id="game-area">
         <Player state={player.current} />
         <Dog state={dog.current} />
@@ -249,7 +311,7 @@ export const Game = () => {
           }
         })}
       </div>
-      <GhostArea className= "gameGhost" width="100%" height="100%">
+      <GhostArea className="gameGhost" width="100%" height="100%">
         <Joystick
           directionCount={DirectionCount.Nine}
           baseRadius={60}
@@ -257,6 +319,7 @@ export const Game = () => {
           onDirectionChange={handleDirectionChange}
         />
       </GhostArea>
+      </div>  
     </div>
   );
 };
