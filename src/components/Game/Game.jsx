@@ -6,72 +6,39 @@ import { Bin } from "./components/Bin/Bin";
 import { Player } from "./components/Player/Player";
 import { useState } from "react";
 import Joystick, { GhostArea, DirectionCount } from "rc-joystick";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import {
+  createBin,
+  createPoop,
+  createTree,
+  createPlayer,
+  createDog,
+} from "./createItems";
+import { isCollision } from "./collisionDetection";
 
 export const Game = () => {
-  const [dog, setDog] = useState({
-    x: 300,
-    y: 300,
-    width: 82,
-    height: 68,
-    direction: "down-left",
-    isMoving: true,
-    stepsToGo: 50,
-  });
+  const [, forceRefresh] = useState({});
 
-  const [player, setPlayer] = useState({
-    x: 100,
-    y: 100,
-    width: 45,
-    height: 84,
-    direction: "up",
-    isMoving: true,
-  });
+  const dog = useRef(createDog(300, 300));
 
-  const [items, setItems] = useState([
-    {
-      id: 1,
-      x: 100,
-      y: 100,
-      width: 30,
-      height: 30,
-      type: "poop",
-    },
-    {
-      id: 2,
-      x: 200,
-      y: 100,
-      width: 30,
-      height: 30,
-      type: "poop",
-    },
-    {
-      id: 3,
-      x: 200,
-      y: 100,
-      width: 100,
-      height: 100,
-      type: "bin",
-    },
-    {
-      id: 4,
-      x: 300,
-      y: 301,
-      width: 200,
-      height: 200,
-      type: "tree",
-    },
+  const player = useRef(createPlayer(200, 299));
+
+  const items = useRef([
+    createBin(200, 100),
+    createPoop(100, 100),
+    createTree(300, 300),
   ]);
 
   useEffect(() => {
     const gameLoop = () => {
-      setPlayer((currentPlayer) => {
-        let newX = currentPlayer.x;
-        let newY = currentPlayer.y;
+      // PLAYER block
+      {
+        let newX = player.current.x;
+        let newY = player.current.y;
         const step = 7;
 
-        if (currentPlayer.isMoving) {
-          switch (currentPlayer.direction) {
+        if (player.current.isMoving) {
+          switch (player.current.direction) {
             case "right":
               newX += step;
               break;
@@ -104,23 +71,35 @@ export const Game = () => {
         }
 
         newX = Math.max(
-          0 + currentPlayer.width / 2,
-          Math.min(window.innerWidth - currentPlayer.width / 2, newX)
+          0 + player.current.width / 2,
+          Math.min(window.innerWidth - player.current.width / 2, newX)
         );
         newY = Math.max(
-          0 + currentPlayer.height,
+          0 + player.current.height,
           Math.min(window.innerHeight, newY)
         );
 
-        return { ...currentPlayer, x: newX, y: newY };
-      });
-      setDog((currentDog) => {
-        let newX = currentDog.x;
-        let newY = currentDog.y;
+        player.current.x = newX;
+        player.current.y = newY;
+
+        for (let i = items.current.length - 1; i >= 0; i--) {
+          if (
+            isCollision(player.current, items.current[i]) &&
+            items.current[i].type === "poop"
+          ) {
+            items.current.splice(i, 1);
+          }
+        }
+      }
+
+      // DOG block
+      {
+        let newX = dog.current.x;
+        let newY = dog.current.y;
         const step = 7;
 
-        if (currentDog.isMoving) {
-          switch (currentDog.direction) {
+        if (dog.current.isMoving) {
+          switch (dog.current.direction) {
             case "right":
               newX += step;
               break;
@@ -153,18 +132,17 @@ export const Game = () => {
         }
 
         newX = Math.max(
-          0 + currentDog.width / 2,
-          Math.min(window.innerWidth - currentDog.width / 2, newX)
+          0 + dog.current.width / 2,
+          Math.min(window.innerWidth - dog.current.width / 2, newX)
         );
         newY = Math.max(
-          0 + currentDog.height,
+          0 + dog.current.height,
           Math.min(window.innerHeight, newY)
         );
 
-        let newStepsToGo = currentDog.stepsToGo - 1;
-        let newDirection = currentDog.direction;
+        let newStepsToGo = dog.current.stepsToGo - 1;
+        let newDirection = dog.current.direction;
         if (newStepsToGo === 0) {
-          console.log("ndiaefsop");
           newStepsToGo = Math.floor(Math.random() * 20 + 30);
           const dogDirection = [
             "up",
@@ -177,30 +155,15 @@ export const Game = () => {
             "up-left",
           ];
           newDirection = dogDirection[Math.floor(Math.random() * 8)];
-
-          setItems((currentItems) => {
-            return [
-              ...currentItems,
-              {
-                id: [Math.floor(Math.random() * 1000)],
-                x: newX,
-                y: newY,
-                width: 30,
-                height: 30,
-                type: "poop",
-              },
-            ];
-          });
+          items.current.push(createPoop(newX, newY));
         }
 
-        return {
-          ...currentDog,
-          x: newX,
-          y: newY,
-          stepsToGo: newStepsToGo,
-          direction: newDirection,
-        };
-      });
+        dog.current.x = newX;
+        dog.current.y = newY;
+        dog.current.stepsToGo = newStepsToGo;
+        dog.current.direction = newDirection;
+      }
+      forceRefresh({});
     };
 
     setInterval(gameLoop, 50);
@@ -219,25 +182,23 @@ export const Game = () => {
       Center: "",
     };
 
-    const newDirection = dir === "Center" ? player.direction : conversion[dir];
+    const newDirection =
+      dir === "Center" ? player.current.direction : conversion[dir];
     const newIsMoving = dir === "Center" ? false : true;
 
-    console.log(conversion[dir], dir);
-    if (player.direction !== newDirection || player.isMoving !== newIsMoving) {
-      setPlayer((currentPlayer) => {
-        return {
-          ...currentPlayer,
-          direction: newDirection,
-          isMoving: newIsMoving,
-        };
-      });
+    if (
+      player.current.direction !== newDirection ||
+      player.current.isMoving !== newIsMoving
+    ) {
+      player.current.direction = newDirection;
+      player.current.isMoving = newIsMoving;
     }
   };
 
   return (
     <div className="game-screen">
       <div id="game-area">
-        {items.map((item) => {
+        {items.current.map((item) => {
           switch (item.type) {
             case "poop":
               return <Poop key={item.id} state={item} />;
@@ -248,8 +209,8 @@ export const Game = () => {
           }
         })}
 
-        <Player state={player} />
-        <Dog state={dog} />
+        <Player state={player.current} />
+        <Dog state={dog.current} />
       </div>
       <GhostArea width="100%" height="100%">
         <Joystick

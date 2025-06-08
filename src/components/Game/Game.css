@@ -23,7 +23,7 @@ body, html {
   inset: 0;
   width: 100dvw;
   height: 100dvh;
-  background-image: url('imgs/backgroundGame.png'); 
+  background-image: url('imgs/backround_small.png'); 
   background-size: cover;
   background-position: center;
   overflow: hidden;

@@ -1,0 +1,90 @@
+
+ body {
+    margin: 0;
+    background-color: #4ba98f;
+    font-family: 'Comic Sans MS', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .start-screen {
+    width: 300px;
+    height: 600px;
+    text-align: center;
+    color: #000;
+  }
+
+
+  .visually-hidden {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+ .start-screen__title-img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
+  }
+
+   .start-screen__dog {
+    margin: 50px auto;
+    width: 164px;
+    height: 136px;
+    background-image: url('imgs/idle.png');
+    background-repeat: no-repeat;
+    background-position-x: 0;
+    animation: dogIdle 1s steps(8) infinite;
+  }
+
+  @keyframes dogIdle {
+    from {
+      background-position-x: 0;
+    }
+    to {
+      background-position-x: -1312px; /* 164px * 8 frames */
+    }
+  }
+
+  .start-screen__poop-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .start-screen__poop-icon {
+    width: 60px;
+    height: 60px;
+    animation: poopBounce 1s infinite alternate;
+  }
+
+  @keyframes poopBounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+ .start-screen__arrow {
+    position: absolute;
+    left: 100px;
+    bottom: 355px;
+    z-index: 10;
+  }
+
+  .start-screen__arrow-img {
+    width: 30px;
+    height: auto;
+  }
+
+  .start-screen__text {
+    margin-top: 60px;
+    font-size: 1.5rem;
+    font-family: "Lacquer", system-ui;
+  }
