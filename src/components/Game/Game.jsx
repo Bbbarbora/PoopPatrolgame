@@ -23,6 +23,9 @@ import { TopBar } from "../TopBar/TopBar";
 import { Menu } from "../Menu/Menu";
 import { useNavigate } from "react-router-dom";
 
+const preventDefault = (e) => {
+  e.preventDefault();
+}
 
 export const Game = () => {
   const navigate = useNavigate()
