@@ -15,19 +15,25 @@ import {
   createDog,
 } from "./createItems";
 import { isCollision } from "./collisionDetection";
+import { useAudio } from "../../hooks/useAudio"; 
+import musicUrl from "./sounds/music.mp3";
+import pickupUrl from "./sounds/pickup.mp3";
+import putUrl from "./sounds/put.mp3";
+
 
 export const Game = () => {
   const [, forceRefresh] = useState({});
-
   const dog = useRef(createDog(300, 300));
-
   const player = useRef(createPlayer(200, 299));
-
   const items = useRef([
     createBin(200, 100),
     createPoop(100, 100),
     createTree(300, 300),
   ]);
+
+  const music = useAudio(musicUrl)
+  const pickupSound = useAudio(pickupUrl)
+  const putSound = useAudio(putUrl)
 
   useEffect(() => {
     const gameLoop = () => {
@@ -91,7 +97,9 @@ export const Game = () => {
             ) {
               items.current.splice(i, 1);
               player.current.isCarryingPoop = true;
+              pickupSound.play();
               break;
+
             }
           }
         }
@@ -101,7 +109,8 @@ export const Game = () => {
           return item.type === "bin";
         });
         if (isCollision(player.current, bin) && player.current.isCarryingPoop) {
-          player.current.isCarryingPoop = false;
+          player.current.isCarryingPoop = false; 
+          putSound.play()
         }
       }
 
@@ -180,6 +189,8 @@ export const Game = () => {
     };
 
     setInterval(gameLoop, 50);
+    music.volume(0.5);
+    music.play();
   }, []);
 
   const handleDirectionChange = (dir) => {
