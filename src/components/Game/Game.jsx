@@ -273,6 +273,26 @@ export const Game = () => {
     };
   }, []);
 
+  const pauseOnBlur = () => {
+    pauseGame();
+    soundOff();
+  }
+  
+  const resumeOnFocus = () => {
+    resumeGame();
+    soundOn();
+  }
+  
+  useEffect(() => {
+    window.addEventListener('blur', pauseOnBlur);
+    window.addEventListener('focus', resumeOnFocus);
+  
+    return () => {
+      window.removeEventListener('blur', pauseOnBlur);
+      window.removeEventListener('focus', resumeOnFocus);
+    }
+  }, []);
+
   useEffect(() => {
     document.addEventListener("selectstart", preventDefault);
     document.addEventListener("contextmenu", preventDefault);
