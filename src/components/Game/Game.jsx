@@ -34,7 +34,7 @@ export const Game = () => {
   const [, forceRefresh] = useState({});
   const dog = useRef(createDog(300, 300));
   const player = useRef(createPlayer(200, 299));
-  const items = useRef([createBin(200, 100), createTree(300, 300), createBench(700,560)]);
+  const items = useRef([createBin(200, 100), createTree(300, 300), createBench(108,320)]);
 
   const dogSpeedIncrease = 0.3;
   const playerSpeedIncrease = 0.2;
@@ -275,25 +275,25 @@ export const Game = () => {
     };
   }, []);
 
-  // const pauseOnBlur = () => {
-  //   pauseGame();
-  //   soundOff();
-  // }
+  const pauseOnBlur = () => {
+    pauseGame();
+    soundOff();
+  }
   
-  // const resumeOnFocus = () => {
-  //   resumeGame();
-  //   soundOn();
-  // }
+  const resumeOnFocus = () => {
+    resumeGame();
+    soundOn();
+  }
   
-  // useEffect(() => {
-  //   window.addEventListener('blur', pauseOnBlur);
-  //   window.addEventListener('focus', resumeOnFocus);
+  useEffect(() => {
+    window.addEventListener('blur', pauseOnBlur);
+    window.addEventListener('focus', resumeOnFocus);
   
-  //   return () => {
-  //     window.removeEventListener('blur', pauseOnBlur);
-  //     window.removeEventListener('focus', resumeOnFocus);
-  //   }
-  // }, []);
+    return () => {
+      window.removeEventListener('blur', pauseOnBlur);
+      window.removeEventListener('focus', resumeOnFocus);
+    }
+  }, []);
 
   useEffect(() => {
     document.addEventListener("selectstart", preventDefault);
