@@ -55,7 +55,7 @@ export const Game = () => {
   useEffect(() => {
     const gameLoop = (currentTime) => {
       if (lastTime.current === 0) { lastTime.current = currentTime; }
-      
+
       const deltaTime = (currentTime - lastTime.current) / 1000;
       if (deltaTime < 0.05) {
         requestAnimationId.current = requestAnimationFrame(gameLoop);
@@ -245,7 +245,19 @@ export const Game = () => {
             newDirection = dogDirection[Math.floor(Math.random() * 8)];
           }
 
-          if (time.current > lastPoopTime.current + poopAfter) {
+          const newDog = {
+            ...dog.current,
+            x: newX,
+            y: newY,
+          };
+          let canDogPoop = true;
+          items.current.forEach((item) => {
+            if (item.type !== "poop" && isCollision(newDog, item)) {
+              canDogPoop = false;
+            }
+          });
+
+          if (canDogPoop && time.current > lastPoopTime.current + poopAfter) {
             items.current.push(createPoop(newX, newY));
             lastPoopTime.current = time.current;
             // test na Game Over
