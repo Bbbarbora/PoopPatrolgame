@@ -54,6 +54,8 @@ export const Game = () => {
 
   useEffect(() => {
     const gameLoop = (currentTime) => {
+      if (lastTime.current === 0) { lastTime.current = currentTime; }
+      
       const deltaTime = (currentTime - lastTime.current) / 1000;
       if (deltaTime < 0.05) {
         requestAnimationId.current = requestAnimationFrame(gameLoop);
