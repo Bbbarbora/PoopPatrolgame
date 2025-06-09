@@ -15,15 +15,13 @@
     align-items: center;
   }
   
-  .rules-screen__back-btn,
-  .rules-screen__language-btn {
+  .rules-screen__back-btn {
     background: none;
     border: none;
     padding: 1rem;
   }
   
-  .rules-screen__back-icon,
-  .rules-screen__language-icon {
+  .rules-screen__back-icon {
     width: 40px;
     height: auto;
   }

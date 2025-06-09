@@ -3,6 +3,7 @@ import { Tree } from "./components/Tree/Tree";
 import { Poop } from "./components/Poop/Poop";
 import { Dog } from "./components/Dog/Dog";
 import { Bin } from "./components/Bin/Bin";
+import { Bench } from "./components/Bench/Bench"
 import { Player } from "./components/Player/Player";
 import { useState } from "react";
 import Joystick, { GhostArea, DirectionCount } from "rc-joystick";
@@ -13,6 +14,7 @@ import {
   createTree,
   createPlayer,
   createDog,
+  createBench,
 } from "./createItems";
 import { isCollision } from "./collisionDetection";
 import { useAudio } from "../../hooks/useAudio";
@@ -32,11 +34,11 @@ export const Game = () => {
   const [, forceRefresh] = useState({});
   const dog = useRef(createDog(300, 300));
   const player = useRef(createPlayer(200, 299));
-  const items = useRef([createBin(200, 100), createTree(300, 300)]);
+  const items = useRef([createBin(200, 100), createTree(300, 300), createBench(700,560)]);
 
   const dogSpeedIncrease = 0.3;
   const playerSpeedIncrease = 0.2;
-  const poopAfter = 7;
+  const poopAfter = 6;
   const lastPoopTime = useRef(0);
 
   const poopCount = useRef(0);
@@ -375,6 +377,8 @@ export const Game = () => {
                 return <Tree key={item.id} state={item} />;
               case "bin":
                 return <Bin key={item.id} state={item} />;
+              case "bench":
+                return <Bench key={item.id} state={item} />;
             }
           })}
         </div>

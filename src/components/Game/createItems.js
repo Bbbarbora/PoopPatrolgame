@@ -76,3 +76,17 @@ export const createTree = (x, y) => {
         type: "tree",
     }
 };
+
+export const createBench = (x, y) => {
+    id += 1
+    return {
+        id: id,
+        x: x,
+        y: y,
+        width: 80,
+        height: 50,
+        r: 35,
+        dy: -20,
+        type: "bench",
+    }
+};

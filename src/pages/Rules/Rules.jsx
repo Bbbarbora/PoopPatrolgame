@@ -1,5 +1,4 @@
 import "./Rules.css";
-import translate from "./imgs/translate_small.png";
 import poop from "./imgs/poop_small.png";
 import { Link } from "react-router-dom";
 
@@ -8,9 +7,7 @@ export const Rules = () => {
     <main className="rules-screen">
       {/* Back button */}
       <div className="rules-screen__top-bar">
-        <button
-          className="rules-screen__back-btn"
-          onClick="history.back()"
+        <button className="rules-screen__back-btn" 
           aria-label="Back to start screen"
         >
           <Link to="/gamePage">
@@ -20,16 +17,6 @@ export const Rules = () => {
               className="rules-screen__back-icon"
             />
           </Link>
-        </button>
-        <button
-          className="rules-screen__language-btn"
-          aria-label="Change language"
-        >
-          <img
-            src={translate}
-            alt="Language icon"
-            className="rules-screen__language-icon"
-          />
         </button>
       </div>
 
