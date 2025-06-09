@@ -113,6 +113,10 @@ export const Game = () => {
           Math.min(window.innerHeight - topBarHeight, newY)
         );
 
+
+
+
+        
         player.current.x = newX;
         player.current.y = newY;
 
