@@ -34,7 +34,7 @@ export const Game = () => {
   const [, forceRefresh] = useState({});
   const dog = useRef(createDog(300, 300));
   const player = useRef(createPlayer(200, 299));
-  const items = useRef([createBin(200, 100), createTree(300, 300), createBench(108,320)]);
+  const items = useRef([createBin(200, 100), createTree(300, 300), createBench(108,520)]);
 
   const dogSpeedIncrease = 0.3;
   const playerSpeedIncrease = 0.2;
