@@ -7,7 +7,8 @@ export const Rules = () => {
     <main className="rules-screen">
       {/* Back button */}
       <div className="rules-screen__top-bar">
-        <button className="rules-screen__back-btn" 
+        <button
+          className="rules-screen__back-btn"
           aria-label="Back to start screen"
         >
           <Link to="/gamePage">
@@ -51,28 +52,36 @@ export const Rules = () => {
         </p>
 
         <p>
-          💩 <strong>Pick up as many poops as you can</strong>
+          💩 <strong> Scoop the poop</strong>
           <br />
-          Walk over the poops to collect them. The cleaner the park, the better
-          your score!
+          Walk over the poop to collect it. But that’s not enough — carry it to
+          the trash can to earn points!
         </p>
 
         <p>
-          ⏱️ <strong>Watch the timer!</strong>
+          🗑️ <strong>Take it to the bin</strong>
           <br />
-          The game ends when time runs out, so be quick!
+          Only poop delivered to the trash counts. That’s right — no shortcuts
+          to cleanliness.
+        </p>
+
+        <p>
+          💥 <strong>Don’t let the poop pile up</strong>
+          <br />
+          If more than 3 poops are chilling on the ground, you lose. Nobody
+          wants to hang out in a poopocalypse.
         </p>
 
         <p>
           ⏸️ <strong>Need a break? Hit pause</strong>
           <br />
-          You can pause the game anytime by tapping the pause button.
+          Even heroes deserve to breathe. Tap the pause button anytime.
         </p>
       </section>
 
       {/* <!-- fun fact --> */}
       <p className="rules-screen__quote">
-        "Being a good dog owner starts with the little things!" 🐾
+        "Behind every happy tail is a tired human with a poop bag." 🐾
       </p>
     </main>
   );
