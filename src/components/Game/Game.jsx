@@ -3,7 +3,7 @@ import { Tree } from "./components/Tree/Tree";
 import { Poop } from "./components/Poop/Poop";
 import { Dog } from "./components/Dog/Dog";
 import { Bin } from "./components/Bin/Bin";
-import { Bench } from "./components/Bench/Bench"
+import { Bench } from "./components/Bench/Bench";
 import { Player } from "./components/Player/Player";
 import { useState } from "react";
 import Joystick, { GhostArea, DirectionCount } from "rc-joystick";
@@ -34,11 +34,12 @@ export const Game = () => {
   const [, forceRefresh] = useState({});
   const dog = useRef(createDog(300, 300));
   const player = useRef(createPlayer(200, 299));
-  const items = useRef([createBin(200, 100), createTree(300, 300), createBench(108,520)]);
+  const items = useRef([
+    createBin(200, 100),
+    createTree(300, 300),
+    createBench(108, 520),
+  ]);
 
-  const dogSpeedIncrease = 0.3;
-  const playerSpeedIncrease = 0.2;
-  const poopAfter = 6;
   const lastPoopTime = useRef(0);
 
   const poopCount = useRef(0);
@@ -54,7 +55,9 @@ export const Game = () => {
 
   useEffect(() => {
     const gameLoop = (currentTime) => {
-      if (lastTime.current === 0) { lastTime.current = currentTime; }
+      if (lastTime.current === 0) {
+        lastTime.current = currentTime;
+      }
 
       const deltaTime = (currentTime - lastTime.current) / 1000;
       if (deltaTime < 0.05) {
@@ -70,7 +73,7 @@ export const Game = () => {
         {
           let newX = player.current.x;
           let newY = player.current.y;
-          const step = 7 + playerSpeedIncrease * poopCount.current;
+          const step = 7;
 
           if (player.current.isMoving) {
             switch (player.current.direction) {
@@ -178,7 +181,7 @@ export const Game = () => {
         {
           let newX = dog.current.x;
           let newY = dog.current.y;
-          const step = 7 + dogSpeedIncrease * poopCount.current;
+          const step = 7;
 
           if (dog.current.isMoving) {
             switch (dog.current.direction) {
@@ -257,6 +260,8 @@ export const Game = () => {
             }
           });
 
+          const poopAfter = Math.min(0.5, 6 - 0.3 * poopCount.current);
+
           if (canDogPoop && time.current > lastPoopTime.current + poopAfter) {
             items.current.push(createPoop(newX, newY));
             lastPoopTime.current = time.current;
@@ -264,7 +269,7 @@ export const Game = () => {
             const poopItems = items.current.filter(
               (item) => item.type === "poop"
             );
-            if (poopItems.length === 3) {
+            if (poopItems.length === 100) {
               navigate("/gameover", { state: { score: poopCount.current } });
             }
           }
@@ -292,21 +297,21 @@ export const Game = () => {
   const pauseOnBlur = () => {
     pauseGame();
     soundOff();
-  }
-  
+  };
+
   const resumeOnFocus = () => {
     resumeGame();
     soundOn();
-  }
-  
+  };
+
   useEffect(() => {
-    window.addEventListener('blur', pauseOnBlur);
-    window.addEventListener('focus', resumeOnFocus);
-  
+    window.addEventListener("blur", pauseOnBlur);
+    window.addEventListener("focus", resumeOnFocus);
+
     return () => {
-      window.removeEventListener('blur', pauseOnBlur);
-      window.removeEventListener('focus', resumeOnFocus);
-    }
+      window.removeEventListener("blur", pauseOnBlur);
+      window.removeEventListener("focus", resumeOnFocus);
+    };
   }, []);
 
   useEffect(() => {
