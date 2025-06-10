@@ -21,7 +21,6 @@ import { useAudio } from "../../hooks/useAudio";
 import musicUrl from "./sounds/music.mp3";
 import pickupUrl from "./sounds/pickup.mp3";
 import putUrl from "./sounds/put.mp3";
-import fartUrl from "./sounds/fart.mp3";
 import { TopBar } from "../TopBar/TopBar";
 import { Menu } from "../Menu/Menu";
 import { useNavigate } from "react-router-dom";
@@ -50,7 +49,6 @@ export const Game = () => {
   const music = useAudio(musicUrl);
   const pickupSound = useAudio(pickupUrl);
   const putSound = useAudio(putUrl);
-  const fartSound = useAudio(fartUrl);
   const requestAnimationId = useRef();
   const lastTime = useRef(0);
   const topBarHeight = 55;
@@ -262,7 +260,7 @@ export const Game = () => {
             }
           });
 
-          const poopAfter = Math.min(0.5, 6 - 0.3 * poopCount.current);
+          const poopAfter = Math.min(2, 6 - 0.3 * poopCount.current);
 
           if (canDogPoop && time.current > lastPoopTime.current + poopAfter) {
             items.current.push(createPoop(newX, newY));
@@ -272,7 +270,7 @@ export const Game = () => {
             const poopItems = items.current.filter(
               (item) => item.type === "poop"
             );
-            if (poopItems.length === 100) {
+            if (poopItems.length === 20) {
               navigate("/gameover", { state: { score: poopCount.current } });
             }
           }
