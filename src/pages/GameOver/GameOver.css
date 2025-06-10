@@ -19,8 +19,15 @@
 
 .gameover-screen__educative {
   width: 100%;
-  height: 100%;
-  background-image: url('imgs/educative_small.png');
+  max-width: 400px;
+  margin: 0 auto;
+  
+}
+
+.gameover-screen__educative img {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 
 .gameover-screen__title {
@@ -28,17 +35,43 @@
   margin: 0;
   font-family: "Press Start 2P", system-ui;
   font-weight: 400;
+  animation: pop-in 0.4s ease-out;
 }
+
+@keyframes pop-in {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 
 .gameover-screen__score {
   font-size: 1.8rem;
   margin: 0;
   font-family: "Press Start 2P", system-ui;
   font-weight: 400;
+  
 }
 
 #final-score {
   font-weight: bold;
+  margin-left: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.final-score__icon {
+  width: 30px;
+  height: 30px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
 }
 
 .gameover-screen__message {
@@ -64,10 +97,5 @@
   transform: scale(1.05);
 }
 
-img {
-  bottom: 60%;
-  right: 60%;
-  width: 30px;
-  height: 30px;
-}
+
 
