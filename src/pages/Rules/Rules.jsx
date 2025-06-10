@@ -68,7 +68,7 @@ export const Rules = () => {
         <p>
           💥 <strong>Don’t let the poop pile up</strong>
           <br />
-          If more than 100 poops are chilling on the ground, you lose. Nobody
+          If more than 30 poops are chilling on the ground, you lose. Nobody
           wants to hang out in a poopocalypse.
         </p>
 
