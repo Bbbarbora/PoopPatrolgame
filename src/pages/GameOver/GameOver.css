@@ -3,7 +3,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100dvh; 
   background-color: #64ac1c;
   display: flex;
   flex-direction: column;
@@ -15,6 +15,7 @@
   font-family: 'Murecho', sans-serif;
   z-index: 9999;
   text-align: center;
+  overflow-y: scroll;
 }
 
 .gameover-screen__educative {
@@ -79,6 +80,12 @@
   max-width: 80%;
 }
 
+@media (max-height: 700px) {
+  .gameover-screen__message {
+    display: none; 
+  }
+}
+
 .gameover-screen__btn {
   background-color: rgba(255, 255, 255, 0.1);
   border: 2px solid white;
@@ -96,6 +103,25 @@
   background-color: rgba(255, 255, 255, 0.25);
   transform: scale(1.05);
 }
+
+.gameover-screen__btn {
+  order: 4; /* vyššie číslo, bude nižšie */
+}
+
+.gameover-screen__message {
+  order: 5;
+}
+
+@media (max-height: 600px) {
+  .gameover-screen__btn {
+    order: 3; /* posunie sa hore */
+  }
+
+  .gameover-screen__message {
+    order: 4;
+  }
+}
+
 
 
 

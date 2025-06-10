@@ -30,6 +30,7 @@ export const GameOver = () => {
       </p>
 
       <button
+        type="button"
         className="gameover-screen__btn"
         onClick={() => {
           navigate("/gamePage");
