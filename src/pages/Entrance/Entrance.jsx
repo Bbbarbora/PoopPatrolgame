@@ -9,7 +9,7 @@ import gamestartUrl from "../../components/Game/sounds/gamestart.mp3";
 
 export const Entrance = () => {
   const navigate = useNavigate();
-  const gameStart = useAudio(gamestartUrl);
+  const gameStartSound = useAudio(gamestartUrl);
   return (
     <main className="start-screen">
       <div className="start-screen-content">
@@ -39,7 +39,11 @@ export const Entrance = () => {
         <button
           className="start-screen__btn"
           onClick={() => {
-            gameStart.play();
+            // gameStartSound.play(); nastavenie 1.
+            // nastavenie s pomocou ai
+            const audio = new Audio(gamestartUrl);
+            audio.play().catch((e) => console.log("Autoplay failed:", e));
+
             navigate("/gamePage");
           }}
           aria-label="Start"
