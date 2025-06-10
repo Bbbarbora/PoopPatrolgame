@@ -4,9 +4,12 @@ import gameTitle from "./imgs/logowhite_small.png";
 import poop from "./imgs/poop_small.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useAudio } from "../../hooks/useAudio";
+import gamestartUrl from "../../components/Game/sounds/gamestart.mp3";
 
 export const Entrance = () => {
   const navigate = useNavigate();
+  const gameStart = useAudio(gamestartUrl);
   return (
     <main className="start-screen">
       <div className="start-screen-content">
@@ -36,6 +39,7 @@ export const Entrance = () => {
         <button
           className="start-screen__btn"
           onClick={() => {
+            gameStart.play();
             navigate("/gamePage");
           }}
           aria-label="Start"
